@@ -1,68 +1,355 @@
-* {
-  box-sizing: border-box;
+/* =========================================================
+   DESIGN SYSTEM
+========================================================= */
+
+:root {
+    --background: #05070a;
+    --card-background: #11161d;
+    --card-background-hover: #151c25;
+
+    --text-primary: #f8fafc;
+    --text-secondary: #a8b3c2;
+    --text-muted: #6b7787;
+
+    --accent: #38bdf8;
+    --accent-hover: #7dd3fc;
+    --accent-soft: rgba(56, 189, 248, 0.12);
+
+    --border: rgba(255, 255, 255, 0.08);
+    --border-accent: rgba(56, 189, 248, 0.35);
+
+    --shadow:
+        0 25px 70px rgba(0, 0, 0, 0.55);
+
+    --radius-card: 24px;
+    --radius-button: 12px;
+
+    --transition: 250ms ease;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    min-height: 100%;
 }
 
 body {
-  background-color: black;
-  color: azure;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  font-family: 'Inter', sans-serif;
-  padding: 20px;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px 20px;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(56, 189, 248, 0.12),
+            transparent 35%
+        ),
+        var(--background);
+
+    color: var(--text-primary);
+
+    font-family:
+        "Inter",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    line-height: 1.6;
 }
 
+
+/* =========================================================
+   PROFILE CARD
+========================================================= */
+
 .card {
-  background-color: rgb(37, 37, 37);
-  padding: 20px;
-  border-radius: 12px;
-  text-align: center;
-  width: 100%;
-  max-width: 300px;
-  min-height: 480px;
+    position: relative;
+
+    width: min(100%, 380px);
+    padding: 36px 28px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.045),
+            rgba(255, 255, 255, 0.015)
+        ),
+        var(--card-background);
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+
+    box-shadow: var(--shadow);
+
+    overflow: hidden;
+
+    transition:
+        transform var(--transition),
+        border-color var(--transition),
+        box-shadow var(--transition);
+}
+
+.card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--accent),
+            transparent
+        );
+
+    opacity: 0.7;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+
+    border-color: var(--border-accent);
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.6),
+        0 0 50px rgba(56, 189, 248, 0.06);
+}
+
+
+/* =========================================================
+   PROFILE IMAGE
+========================================================= */
+
+.picture {
+    display: flex;
+    justify-content: center;
+
+    margin-bottom: 22px;
 }
 
 .picture img {
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  border: 1px solid rgba(237, 214, 6, 0.6);
-  object-fit: cover;
-  object-position: center top;
-  padding: 3px;
+    width: 120px;
+    height: 120px;
+
+    object-fit: cover;
+    object-position: center top;
+
+    padding: 4px;
+
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+
+    background: var(--card-background);
+
+    box-shadow:
+        0 0 0 8px var(--accent-soft),
+        0 15px 35px rgba(0, 0, 0, 0.35);
+
+    transition:
+        transform 350ms ease,
+        box-shadow 350ms ease;
 }
 
-.links a {
-  display: block;
-  background-color: #333333;
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  text-decoration: none;
-  color: antiquewhite;
+.card:hover .picture img {
+    transform: scale(1.04);
+
+    box-shadow:
+        0 0 0 10px rgba(56, 189, 248, 0.1),
+        0 18px 40px rgba(0, 0, 0, 0.4);
 }
 
-.links a:hover {
-  background-color: #144c76;
-  color: white;
+
+/* =========================================================
+   PROFILE TEXT
+========================================================= */
+
+.card h1 {
+    color: var(--text-primary);
+
+    font-size: clamp(1.7rem, 5vw, 2rem);
+    font-weight: 750;
+
+    line-height: 1.2;
+    letter-spacing: -0.03em;
 }
 
 .location {
-  color: rgb(139, 109, 0);
+    margin-top: 8px;
+
+    color: var(--accent);
+
+    font-size: 0.9rem;
+    font-weight: 600;
 }
 
 .bio {
-  color: rgb(153, 158, 69);
+    margin: 14px auto 25px;
+
+    max-width: 300px;
+
+    color: var(--text-secondary);
+
+    font-size: 0.95rem;
+    line-height: 1.7;
 }
 
-@media screen and (max-width: 600px) {
-  body {
-    align-items: flex-start;
-  }
 
-  .card {
-    max-width: 100%;
-    min-height: auto;
-  }
+/* =========================================================
+   SOCIAL / PROFILE LINKS
+========================================================= */
+
+.links {
+    display: grid;
+    gap: 11px;
+
+    margin-top: 25px;
+}
+
+.links a {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 50px;
+    padding: 12px 18px;
+
+    color: var(--text-secondary);
+
+    background: rgba(255, 255, 255, 0.035);
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-button);
+
+    font-size: 0.9rem;
+    font-weight: 650;
+
+    transition:
+        color var(--transition),
+        background var(--transition),
+        border-color var(--transition),
+        transform var(--transition),
+        box-shadow var(--transition);
+}
+
+.links a:hover {
+    color: var(--text-primary);
+
+    background: var(--accent-soft);
+
+    border-color: var(--border-accent);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.links a:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   KEYBOARD ACCESSIBILITY
+========================================================= */
+
+a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+========================================================= */
+
+@media (max-width: 600px) {
+
+    body {
+        align-items: flex-start;
+
+        padding:
+            40px
+            15px;
+    }
+
+    .card {
+        padding: 32px 22px;
+
+        border-radius: 20px;
+    }
+
+    .picture img {
+        width: 110px;
+        height: 110px;
+    }
+
+    .card h1 {
+        font-size: 1.7rem;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL DEVICES
+========================================================= */
+
+@media (max-width: 360px) {
+
+    body {
+        padding: 25px 12px;
+    }
+
+    .card {
+        padding: 28px 18px;
+    }
+
+    .picture img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .links a {
+        min-height: 46px;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
 }
